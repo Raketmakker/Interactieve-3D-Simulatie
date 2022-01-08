@@ -11,7 +11,11 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed;
     public string mouseX = "Mouse X";
     public float mouseThreashold = 0.05f;
-    public float rotateSpeed = 1;
+    public float xRotateSpeed = 300;
+    public string mouseY = "Mouse Y";
+    public float yRotateSpeed = 300;
+    public Transform cam;
+    public Transform head;
     public float jumpForce;
     public KeyCode jumpKey;
 
@@ -22,7 +26,6 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 movement = new Vector3();
@@ -35,10 +38,16 @@ public class PlayerController : MonoBehaviour
             this.rb.AddForce(this.transform.up * this.jumpForce, ForceMode.Impulse);
         }
 
-        float mouse = Input.GetAxis(this.mouseX);
-        if (mouse > this.mouseThreashold || mouse < -this.mouseThreashold)
+        float mouseX = Input.GetAxis(this.mouseX);
+        if (mouseX > this.mouseThreashold || mouseX < -this.mouseThreashold)
         {
-            this.transform.Rotate(transform.up, mouse * Time.deltaTime * this.rotateSpeed);
+            this.transform.Rotate(transform.up, mouseX * Time.deltaTime * this.xRotateSpeed);
+        }
+        
+        float mouseY = Input.GetAxis(this.mouseY);
+        if (mouseY > this.mouseThreashold || mouseY < -this.mouseThreashold)
+        {
+            this.cam.RotateAround(this.head.position, -this.cam.right, mouseY * Time.deltaTime * this.yRotateSpeed);
         }
     }
 

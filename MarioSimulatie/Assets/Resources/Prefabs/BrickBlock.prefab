@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4016127095327629081}
   - component: {fileID: 4393251523772237221}
-  - component: {fileID: 4393251523772237220}
   m_Layer: 0
   m_Name: BrickBlock
   m_TagString: Untagged
@@ -47,21 +46,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4393251523772237220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4393251523772237219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3f582d31f8abd4d8e6687bccbe6614, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angleRange: {x: -0.5, y: 0.5}
-  fireForce: 7.5
-  coin: {fileID: 1759989387948271274, guid: 10f44b538bcf1f1418d94ecabe4310ea, type: 3}
 --- !u!1 &7466751922670325804
 GameObject:
   m_ObjectHideFlags: 0
