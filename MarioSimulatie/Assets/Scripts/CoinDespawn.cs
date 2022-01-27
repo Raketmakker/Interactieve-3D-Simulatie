@@ -18,8 +18,10 @@ public class CoinDespawn : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Is de tag van de collision de player?
         if (collision.transform.root.tag.Contains(this.playerTag))
         {
+            //Vernietig het muntje
             Destroy(this.gameObject);
         }
     }
