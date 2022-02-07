@@ -25,9 +25,12 @@ public class BrickBlockCoinInteractable : MonoBehaviour
     {
         yield return new WaitForSeconds(positionDelay);
         GameObject head = GameObject.Find("VRCamera");
-        Vector3 position = transform.position;
-        position.y = head.transform.position.y + blockHeight;
-        this.transform.position = position;
+        if(head != null)
+        {
+            Vector3 position = transform.position;
+            position.y = head.transform.position.y + blockHeight;
+            this.transform.position = position;
+        }
         StopCoroutine(SetBlockHeight());
     }
 
