@@ -7,11 +7,12 @@ using UnityEngine.AI;
 public class HammerbroPathfinding : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private enum MOVESTATE { LEFT, RIGHT, OUTOFRANGE }
+    private Vector3 destination;
+    private enum MOVESTATE { MOVING, OUTOFRANGE, SIDEWAYS }
     private MOVESTATE state = MOVESTATE.OUTOFRANGE;
     public GameObject player;
     public string playerTag = "Player";
-    public float distance = 16;
+    public float range = 16;
     public float positionDelay = 0.5f;
     public float sidewaysDistance = 3f;
 
@@ -27,27 +28,38 @@ public class HammerbroPathfinding : MonoBehaviour
     {
         while (true)
         {
-            switch (this.state)
+            switch (state)
             {
-                case MOVESTATE.OUTOFRANGE:
-                    //Is the player in range
-                    if (Vector3.Distance(this.player.transform.position, this.transform.position) > this.distance)
+                case MOVESTATE.MOVING:
+                    if(Vector3.Distance(this.destination, this.transform.position) <= 0.5f)
                     {
-                        //From the player to the agent (direction) = agent - player
-                        Vector3 direction = this.agent.transform.position + this.player.transform.position;
-                        //Nomralize the direction (a length of 1). And multiply it by the distance
-                        direction = direction.normalized * this.distance;
-                        //Start at the player and add the direction (wished position from the player)
-                        this.agent.SetDestination(this.player.transform.position + direction);
-                    }
-                    else
-                    {
-                        this.state = MOVESTATE.LEFT;
+                        if(Vector3.Distance(this.player.transform.position, this.transform.position) <= this.range)
+                            this.state = MOVESTATE.SIDEWAYS;
+                        else
+                            this.state = MOVESTATE.OUTOFRANGE;
                     }
                     break;
-                
+                case MOVESTATE.SIDEWAYS:
+                    Vector3 dir = (this.player.transform.position - this.transform.position).normalized * sidewaysDistance;
+                    if(Random.Range(0, 10) % 2 == 0)
+                        this.destination = new Vector3(dir.z, 0, -dir.x);
+                    else
+                        this.destination = new Vector3(-dir.z, 0, dir.x);
+
+                    this.destination += this.transform.position;
+                    this.destination.y = 0;
+                    this.agent.SetDestination(this.destination);
+                    this.state = MOVESTATE.MOVING;
+                    break;
+                case MOVESTATE.OUTOFRANGE:
+                    Vector3 direction = this.transform.position + this.player.transform.position;
+                    direction = direction.normalized * (this.range - 1);
+                    this.destination = this.player.transform.position + direction;
+                    this.destination.y = 0;
+                    this.agent.SetDestination(this.destination);
+                    this.state = MOVESTATE.MOVING;
+                    break;
             }
-            
             yield return new WaitForSeconds(this.positionDelay);
         }        
     }
