@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3002143593712786707}
   - component: {fileID: 3002143593712786706}
   - component: {fileID: 3002143593712786704}
+  - component: {fileID: 6605273312669589626}
   m_Layer: 0
   m_Name: GreenShell
   m_TagString: Untagged
@@ -187,6 +188,18 @@ MonoBehaviour:
   velocityAverageFrames: 5
   angularVelocityAverageFrames: 11
   estimateOnAwake: 0
+--- !u!114 &6605273312669589626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3002143593712786710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1c202332f6def449a49a854091d7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3002143593435085237
 PrefabInstance:
   m_ObjectHideFlags: 0

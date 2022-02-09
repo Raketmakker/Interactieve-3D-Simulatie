@@ -10,15 +10,18 @@ public class HammerbroPathfinding : MonoBehaviour
     private Vector3 destination;
     private enum MOVESTATE { MOVING, OUTOFRANGE, SIDEWAYS }
     private MOVESTATE state = MOVESTATE.OUTOFRANGE;
+    private Rigidbody rb;
     public GameObject player;
     public string playerTag = "Player";
     public float range = 16;
     public float positionDelay = 0.5f;
     public float sidewaysDistance = 3f;
+    public float jumpforce = 100;
 
     private void Awake()
     {
         this.agent = GetComponent<NavMeshAgent>();
+        this.rb = GetComponent<Rigidbody>();
         this.player = GameObject.FindWithTag(this.playerTag);
         this.StartCoroutine(SetPosition());
     }
@@ -62,5 +65,20 @@ public class HammerbroPathfinding : MonoBehaviour
             }
             yield return new WaitForSeconds(this.positionDelay);
         }        
+    }
+
+    public void Jump()
+    {
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        agent.isStopped = true;
+        this.rb.AddForce(Vector3.up * jumpforce, ForceMode.Impulse);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        agent.updatePosition = true;
+        agent.updateRotation = true;
+        agent.isStopped = false;
     }
 }

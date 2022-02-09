@@ -5,31 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public string scenename;
-    public string singleScene;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            LoadSceneAdditive();
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SceneManager.LoadScene(this.singleScene, LoadSceneMode.Single);
-        }
-    }
+    public string additiveScene = "Level2Addition";
 
     public void LoadSceneAdditive()
     {
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            if (this.scenename.Equals(SceneManager.GetSceneAt(i).name))
+            if (this.additiveScene.Equals(SceneManager.GetSceneAt(i).name))
             {
-                return;
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(i));
             }
         }
-        SceneManager.LoadScene(this.scenename, LoadSceneMode.Additive);
+        SceneManager.LoadScene(this.additiveScene, LoadSceneMode.Additive);
     }
 }

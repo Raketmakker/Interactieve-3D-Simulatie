@@ -9,6 +9,7 @@ public class Boomerang : MonoBehaviour
         if (collision.transform.root.tag.Equals("Player"))
         {
             Debug.Log("Player got hit!");
+            GameObject.FindWithTag("Enemy").BroadcastMessage("Jump");
         }
         Destroy(this.gameObject);
     }
